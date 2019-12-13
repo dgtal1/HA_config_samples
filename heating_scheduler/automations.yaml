@@ -1,0 +1,14 @@
+- id: 'unique_id_123213542351345234'
+  alias: '[HEATING] Scheduler + Thermostat'
+  description: Sensor based weekly heating scheduler
+  trigger:
+  - platform: time_pattern
+    seconds: /60
+  condition:
+  - condition: template
+    value_template: '{{(states("binary_sensor.thermostat") != states("switch.boiler"))}}'
+  action:
+  - data:
+      entity_id: switch.boiler
+    service_template: '{% if states("switch.boiler") == ''on'' %}switch.turn_off {%
+      else %}switch.turn_on{% endif %}'
