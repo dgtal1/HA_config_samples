@@ -1,28 +1,63 @@
+# these inputs allow defining all heating periods per day, period format [24 hours format]: HH:MM-HH:MM*TMP, HH:MM-HH:MM*TMP, etc
 input_text:
-  piec_d1:
+  boiler_d1:
     name: MON
     pattern: '\d?\d:\d\d-\d?\d:\d\d\*\d\d.\d\,?\ ?'
 
-  piec_d2:
+  boiler_d2:
     name: TUE
     pattern: '\d?\d:\d\d-\d?\d:\d\d\*\d\d.\d\,?\ ?'    
 
-  piec_d3:
+  boiler_d3:
     name: WED
     pattern: '\d?\d:\d\d-\d?\d:\d\d\*\d\d.\d\,?\ ?'    
 
-  piec_d4:
+  boiler_d4:
     name: THU
     pattern: '\d?\d:\d\d-\d?\d:\d\d\*\d\d.\d\,?\ ?'    
 
-  piec_d5:
+  boiler_d5:
     name: FRI
     pattern: '\d?\d:\d\d-\d?\d:\d\d\*\d\d.\d\,?\ ?'    
 
-  piec_d6:
+  boiler_d6:
     name: SAT
     pattern: '\d?\d:\d\d-\d?\d:\d\d\*\d\d.\d\,?\ ?'    
 
-  piec_d7:
+  boiler_d7:
     name: SUN
     pattern: '\d?\d:\d\d-\d?\d:\d\d\*\d\d.\d\,?\ ?'
+
+# I use this as otherwise any time comparisons in jinja templatess 
+# are just ridiculous and totally unreadable
+sensor:
+  - platform: time_date
+    display_options:
+      - 'time'
+
+# this is needed to determine whether in specified period heating should be switched on or not
+# it combines all these input fields above + a temperature sensor 'sensor.temperature' + 
+# a time sensor 'sensor.time'
+binary_sensor:
+  - platform: template
+    sensors:
+      thermostat:
+        friendly_name: "Boiler thermostat (for scheduler)"
+        value_template: >-
+          {% set entry = states("input_text.boiler_d"+now().isoweekday()|string)|trim %}
+          {% set ns = namespace(state=False) %}
+          {% set t_cur = states("sensor.temperature").split(",")|last|trim|float %}
+          {% set time = states("sensor.time")|trim %}
+          {% set hm = time|replace(":","")|int %}
+          {% for period in entry.split(",") %}
+            {% set period = period.split("*") %}
+            {% set t_min = period|last|float %}
+            {% set time_all = period|first|trim %}
+            {% set time_from, time_to = time_all.split("-") %}
+            {% set tfr = time_from|replace(":","")|int %}
+            {% set tto = time_to|replace(":","")|int %}
+            {% if hm>=tfr and hm <=tto and t_cur<t_min %}
+              {% set ns.state = True %}
+            {% endif%}
+          {% endfor %}
+          {{ns.state}}
