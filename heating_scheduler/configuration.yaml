@@ -1,0 +1,28 @@
+input_text:
+  piec_d1:
+    name: MON
+    pattern: '\d?\d:\d\d-\d?\d:\d\d\*\d\d.\d\,?\ ?'
+
+  piec_d2:
+    name: TUE
+    pattern: '\d?\d:\d\d-\d?\d:\d\d\*\d\d.\d\,?\ ?'    
+
+  piec_d3:
+    name: WED
+    pattern: '\d?\d:\d\d-\d?\d:\d\d\*\d\d.\d\,?\ ?'    
+
+  piec_d4:
+    name: THU
+    pattern: '\d?\d:\d\d-\d?\d:\d\d\*\d\d.\d\,?\ ?'    
+
+  piec_d5:
+    name: FRI
+    pattern: '\d?\d:\d\d-\d?\d:\d\d\*\d\d.\d\,?\ ?'    
+
+  piec_d6:
+    name: SAT
+    pattern: '\d?\d:\d\d-\d?\d:\d\d\*\d\d.\d\,?\ ?'    
+
+  piec_d7:
+    name: SUN
+    pattern: '\d?\d:\d\d-\d?\d:\d\d\*\d\d.\d\,?\ ?'
