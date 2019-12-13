@@ -1,3 +1,8 @@
+# you need to have a boiler or whatever heating system controlled by a switch for this to work
+# however if you've got another HVAC then there should be no problem to control it by 
+# calling respective HA services for it etc instead of switch.turn_on/off
+# the key thing here is binary_sensor.thermostat which turn 'on' if a temperature 
+# in a given time period is below a temperature indicated by a sensor
 - id: 'unique_id_123213542351345234'
   alias: '[HEATING] Scheduler + Thermostat'
   description: Sensor based weekly heating scheduler
