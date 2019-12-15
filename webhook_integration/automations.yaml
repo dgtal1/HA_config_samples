@@ -29,8 +29,8 @@
 # sample url: /api/webhook/grenton_webhook_state_change_json
 # JSON payload:
 # {
-#   "entity_id"="light.entrance",
-#   "state"="on"
+#   "entity_id": "light.entrance",
+#   "state": "on"
 # }
 - id: 'webhook_state_change_json'
   alias: 'Webhook-based state change'
