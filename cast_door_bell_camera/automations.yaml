@@ -1,0 +1,13 @@
+- id: 'cast_door_bell_camera'
+  trigger:
+  - entity_id: switch.dzwonek
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: media_player.google_home_hub
+      view_path: entrance_camera
+    service: cast.show_lovelace_view
+    
+    
