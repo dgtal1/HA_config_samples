@@ -1,0 +1,5 @@
+# picture glance YAML code
+type: picture-glance
+image: /local/camera_snapshots/2019-10-11_12-13-14.jpg
+entities: []
+aspect_ratio: 0%
