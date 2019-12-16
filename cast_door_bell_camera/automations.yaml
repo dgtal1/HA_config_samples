@@ -1,6 +1,6 @@
 - id: 'cast_door_bell_camera'
   trigger:
-  - entity_id: switch.dzwonek
+  - entity_id: switch.doorbell
     platform: state
     to: 'on'
   condition: []
