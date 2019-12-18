@@ -6,7 +6,7 @@
   description: ''
   trigger:
   - platform: webhook
-    webhook_id: grenton_webhook_status_state_url
+    webhook_id: grenton_webhook_state_change_url
   condition: []
   action:
   - data_template:
