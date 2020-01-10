@@ -54,3 +54,36 @@
       {% set service = domain+'.'+'turn_off' %}
       {% endif %}      
       {{service}}      
+
+# set state for multiple entities at once
+# webhook needs to be called with HTTP method: POST
+# parameters are enclosed in JSON payload
+# sample url: /api/webhook/grenton_webhook_state_change_json
+# JSON payload:
+# {
+#   "entity_id": ["switch.entrance", "switch.kitchen"],
+#   "state": "on"
+# }
+# DRAFT!!! TBDd
+- id: 'webhook_state_change_json'
+  alias: 'Webhook-based state change'
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: grenton_webhook_state_change_json
+  condition: []
+  action:
+  - data_template:
+      entity_id: >-
+        {% set entity_id = trigger.json['entity_id'] %}
+        {{entity_id}}
+    service_template: >-      
+      {% set entity_id = trigger.json['entity_id'] %}
+      {% set domain = entity_id.split('.')|first %}
+      {% set state = trigger.json['state'] %}
+      {% if state == 'on' %} 
+      {% set service = domain+'.'+'turn_on' %}
+      {% else %}
+      {% set service = domain+'.'+'turn_off' %}
+      {% endif %}      
+      {{service}}      
