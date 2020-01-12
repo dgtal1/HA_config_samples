@@ -4,7 +4,7 @@ SCRIPT INPUT - JSON MESSAGE:
     "entities": [
         {
             "input_boolean.switchable": {
-            "state": "off"
+                "state": "off"
             }
         },
         {
@@ -19,7 +19,7 @@ SCRIPT INPUT - JSON MESSAGE:
         },
         {
             "senor.temperature": {
-            "state": "22.1"
+                "state": "22.1"
             }
         },
         {
