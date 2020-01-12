@@ -65,25 +65,13 @@
 #   "state": "on"
 # }
 # DRAFT!!! TBDd
-- id: 'webhook_state_change_json'
-  alias: 'Webhook-based state change'
+- id: 'webhook_state_change_json_multiple_states'
+  alias: 'Webhook-based state change for multiple entities'
   description: ''
   trigger:
   - platform: webhook
-    webhook_id: grenton_webhook_state_change_json
+    webhook_id: grenton_webhook_state_change_json_multiple
   condition: []
   action:
-  - data_template:
-      entity_id: >-
-        {% set entity_id = trigger.json['entity_id'] %}
-        {{entity_id}}
-    service_template: >-      
-      {% set entity_id = trigger.json['entity_id'] %}
-      {% set domain = entity_id.split('.')|first %}
-      {% set state = trigger.json['state'] %}
-      {% if state == 'on' %} 
-      {% set service = domain+'.'+'turn_on' %}
-      {% else %}
-      {% set service = domain+'.'+'turn_off' %}
-      {% endif %}      
-      {{service}}      
+  - data_template: {{trigger.json}}
+    service: python_script.set_state_multiple
