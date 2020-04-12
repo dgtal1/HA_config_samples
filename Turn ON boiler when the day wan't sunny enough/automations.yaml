@@ -9,7 +9,7 @@
     before: sunset
     condition: sun
   - condition: state
-    entity_id: weather.dom
+    entity_id: weather.home
     state: sunny
   action:
   - data: {}
