@@ -75,3 +75,24 @@
   action:
   - data_template: {{trigger.json}}
     service: python_script.set_state_multiple
+
+# Push notification with a message text received by webhook
+# webhook needs to be called with HTTP method: POST
+# parameters are enclosed in JSON payload
+# sample url: /api/webhook/webhook_for_mobile_notification_example
+# JSON payload:
+# {
+#     "message": "This is a test!"
+# }
+- id: 'webhook_notify_mobile'
+  alias: '[WEBHOOK] Notify mobile'
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: webhook_for_mobile_notification_example
+  condition: []
+  action:
+  - data_template:
+      message: >-
+        {{trigger.json['message']}}
+    service: notify.mobile_app_ios_przemek
