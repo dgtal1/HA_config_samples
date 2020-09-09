@@ -73,7 +73,8 @@
     webhook_id: grenton_webhook_state_change_json_multiple
   condition: []
   action:
-  - data_template: {{trigger.json}}
+  - data_template: 
+      payload: '{{trigger.json}}'
     service: python_script.set_state_multiple
 
 # Push notification with a message text received by webhook
