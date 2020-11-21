@@ -45,8 +45,7 @@ def add_entity_state(state_dict, entity_id, state):         #(state_dict: dict, 
     elif list_state is not None:
         list_state.append(dict_state)
 
-
-entities = data.get('entities')
+entities = data.get('payload').get('entities')
 
 domain_states = {                                   
     "switch": {"on": [], "off": []},                   # list element: entity_id
@@ -80,14 +79,15 @@ for entity in entities:
 
 for domain, state_dict in domain_states.items():
     for state_kind, data_list in state_dict.items():
-        
+        if not data_list:
+            continue
         if state_kind == 'state':
             for state_data in data_list:
                 entity_id = state_data.get('entity_id')
                 state     = state_data.get('state')
                 state_obj = hass.states.get(entity_id)
-                logger.error(entity_id)
                 hass.states.set(entity_id, state, state_obj.attributes)
         else:
             service_data = {"entity_id": data_list}
-            hass.services.call(domain, "turn_"+state_kind, service_data, False)
+            service = f"turn_{state_kind}"
+            hass.services.call(domain, service, service_data, False)
