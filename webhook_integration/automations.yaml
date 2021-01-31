@@ -59,12 +59,7 @@
 # webhook needs to be called with HTTP method: POST
 # parameters are enclosed in JSON payload
 # sample url: /api/webhook/grenton_webhook_state_change_json
-# JSON payload:
-# {
-#   "entity_id": ["switch.entrance", "switch.kitchen"],
-#   "state": "on"
-# }
-# DRAFT!!! TBDd
+# JSON payload - see: python_scripts/set_state_multiple.py
 - id: 'webhook_state_change_json_multiple_states'
   alias: 'Webhook-based state change for multiple entities'
   description: ''
