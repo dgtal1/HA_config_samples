@@ -23,5 +23,4 @@ for entity in entities:
         entity = f"{domain}.{name}"
 
         state_obj = hass.states.get(entity)
-        logger.error(entity)
         hass.states.set(entity, state, state_obj.attributes)
