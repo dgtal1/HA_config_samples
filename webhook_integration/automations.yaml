@@ -72,6 +72,23 @@
       payload: '{{trigger.json}}'
     service: python_script.set_state_multiple
 
+# set state for multiple entities at once
+# webhook needs to be called with HTTP method: POST
+# parameters are enclosed in JSON payload
+# sample url: /api/webhook/grenton_webhook_state_change_json_light
+# JSON payload - see: python_scripts/set_state_multiple.py
+- id: 'webhook_state_change_json_multiple_states'
+  alias: 'Webhook-based state change for multiple entities'
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: grenton_webhook_state_change_json_light
+  condition: []
+  action:
+  - data_template: 
+      payload: '{{trigger.json}}'
+    service: python_script.set_state_multiple_light
+
 # Push notification with a message text received by webhook
 # webhook needs to be called with HTTP method: POST
 # parameters are enclosed in JSON payload
