@@ -1,0 +1,129 @@
+alias: "[EXTALIFE] DOUBLE CLICK"
+description: |-
+  Raise event: extalife_button_double
+  Button: 0,1,2,3
+trigger:
+  - platform: event
+    event_type: extalife_scene
+    event_data:
+      start: true
+      id: 0
+    variables:
+      button_event: "{{ trigger.event.data.id }}"
+    id: "0"
+  - platform: event
+    event_type: extalife_scene
+    event_data:
+      start: true
+      id: 2
+    variables:
+      button_event: "{{ trigger.event.data.id }}"
+    id: "1"
+  - platform: event
+    event_type: extalife_scene
+    event_data:
+      start: true
+      id: 4
+    variables:
+      button_event: "{{ trigger.event.data.id }}"
+    id: "2"
+  - platform: event
+    event_type: extalife_scene
+    event_data:
+      start: true
+      id: 6
+    variables:
+      button_event: "{{ trigger.event.data.id }}"
+    id: "3"
+condition: []
+action:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: "0"
+        sequence:
+          - wait_for_trigger:
+              - platform: event
+                event_type: extalife_scene
+                event_data:
+                  start: true
+                  id: 0
+            timeout:
+              hours: 0
+              minutes: 0
+              seconds: 0
+              milliseconds: 500
+          - if:
+              - condition: template
+                value_template: "{{ wait.trigger is not none }}"
+            then:
+              - event: extalife_button_doubleclick
+                event_data:
+                  button: 0
+      - conditions:
+          - condition: trigger
+            id: "1"
+        sequence:
+          - wait_for_trigger:
+              - platform: event
+                event_type: extalife_scene
+                event_data:
+                  start: true
+                  id: 2
+            timeout:
+              hours: 0
+              minutes: 0
+              seconds: 0
+              milliseconds: 500
+          - if:
+              - condition: template
+                value_template: "{{ wait.trigger is not none }}"
+            then:
+              - event: extalife_button_doubleclick
+                event_data:
+                  button: 1
+      - conditions:
+          - condition: trigger
+            id: "2"
+        sequence:
+          - wait_for_trigger:
+              - platform: event
+                event_type: extalife_scene
+                event_data:
+                  start: true
+                  id: 4
+            timeout:
+              hours: 0
+              minutes: 0
+              seconds: 0
+              milliseconds: 500
+          - if:
+              - condition: template
+                value_template: "{{ wait.trigger is not none }}"
+            then:
+              - event: extalife_button_doubleclick
+                event_data:
+                  button: 2
+      - conditions:
+          - condition: trigger
+            id: "3"
+        sequence:
+          - wait_for_trigger:
+              - platform: event
+                event_type: extalife_scene
+                event_data:
+                  start: true
+                  id: 6
+            timeout:
+              hours: 0
+              minutes: 0
+              seconds: 0
+              milliseconds: 500
+          - if:
+              - condition: template
+                value_template: "{{ wait.trigger is not none }}"
+            then:
+              - event: extalife_button_doubleclick
+                event_data:
+                  button: 3
+mode: single
